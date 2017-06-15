@@ -53,6 +53,6 @@ jobs:
           on:
             tags: true
         - provider: script
-          script: bash -c 'for tag in "$@"; do docker push "$tag"; done' -- ${tags[@]}
+          script: \'for tag in "${tags[@]}"; do docker push "$tag"; done\'
           on:
             branch: master
