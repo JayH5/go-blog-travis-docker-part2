@@ -1,0 +1,18 @@
+language: go
+go:
+  - 1.7.x
+  - 1.8.x
+
+script:
+  - go test -v ./...
+  - go build -o bin/hello -i .
+
+deploy:
+  provider: releases
+  api_key:
+    secure: AOCF1udPK8Lcd1252/2iM/tQ/UyieC4H53WW2MLYmjLg2ARJNbN+lOzU44icUqxJWs53prkE8GENDHZff5bVUA8VoFmIbtcQgCiOu6WaV5zFmj7X2Fq4eS+TeVQRJTiveI4+E/GIHcu/9sGlGfoXLE5OA+YK5myfbXR3L6+DLY3JjlhIXLX/83kIH6qQ2DrlQkFW1qAM/E1AkhxK5cZIC7yqQVZwYxWlhRSqrlctzv0lLMueE5puNHunUtzKbHQs50PeDnymD8CKz0fXlQnuBaZ57K7Q3Kwu2YHqYHCpDB9lZxSxzuSq9n77KVEPQEij/RRteHGcVfl0xa0Ia1Fwxk5BrmsJiyHJ2fiQDNzmuxUhRTYsRus6pzjlcTftjx1GrTYV7x57pe5KvqT3+kj/O2UtThlHC7dQjOMHbWnB+lK/rb4IAg3JcWx5/Js02KkQAHr8bKcCiMb/CcDSOVt/nWV80Z3RzzemPFXJzJOIR5NtPVw9tsQcjebvxN+1supErab3Wx2gQK37faLbo0W1CI0Hz+dJGNX9B/e+ZdytYXIBlNWFVfhYWJ03h7RoEKbjFAbqrFwEFOwE7nlDezqm+xBXK5l3FiwAQ5WqyJcVvbMlUSjWVHNJf3CYycrcs5dJCRcVus3kkvLPhIsHu6B66PS0LI/s+p98SbQpwfXQrV4=
+  file: bin/hello
+  skip_cleanup: true
+  on:
+    condition: $TRAVIS_GO_VERSION =~ ^1\.8\.
+    tags: true
