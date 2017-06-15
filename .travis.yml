@@ -28,7 +28,7 @@ jobs:
       env:
         - IMAGE_NAME=testblogorganization/hellofaster
         - REGISTRY_USER=testblogdeploy
-        - secure:
+        - secure: "n1RmZTtrcm5kNeq3IDdQCb7PDAjCMuG5QfGxfsYDkJfhtUPugLFJTzfWyVfBWDyNIFKyyUiPote2neFovJRlefcYf3pO3qiacbC8W0+WVkrGofkT1koDKc9FyoSM5GsPuyUB5Md0DXQ3d4dz48v/Ba2b+wRPy949NL91hLPaK+7R9ghxnl8fW2oIl0pWsfA2stPoRuJ0KY27AgvtrPd+Jrfr0BqcDOSEawaW9fkXWnDh01aXVF/5JOJdqQWDAsdNZbkggOw9TUlO5XE1BIg7WAcxlVgagqbFleHrJhL045fYDFWi+CsAD688KiGZsIHceoOrxZmwh/+wj5Ql0Nuop2FxtW+JmvpdJ8XOxHkfrzNw4F38oJZoMtcKj/KBKIzQMW0c/xCQjxR9eaPsuW1mtPvFPlTN+XZPcLXN9GwQzu9sR3wX3ZOR/oigq/RM2qpL8VIh+ub0ulZOYRFUaPmPlrd3wadQSBUgNrNJTNyc3GzdIrMBGtx9/BwW6kWCI7yTvX2WVPKJ0R5Xi6Rq0TcbEZtXdYuz1hNtsQdlyM2XWDFjQ8BcSxclr4WiHeu0/XyeeTRnQNcHALay86QpmBg44xTGFyjjPacmaf1u36O7xBXDtNY+sY+6MCxJOk836biDknoEUaZi4KhTgL77J79UZV24t7QEm30mqPyL/grhr6Y="
 
       before_install:
         - sudo apt-get update
