@@ -1,11 +1,7 @@
 language: go
 go:
   - 1.8.x
-  - stable
-  - tip
-matrix:
-  allow_failures:
-    - go: tip
+  - master
 
 script:
   - go test -v ./...
