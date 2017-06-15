@@ -1,8 +1,7 @@
 language: go
-matrix:
-  include:
-    - go: 1.7.x
-    - go: 1.8.x
+go:
+  - 1.7.x
+  - 1.8.x
 
 script:
   - go test -v ./...
@@ -20,6 +19,7 @@ deploy:
 
 jobs:
   include:
+    - stage: test
     - stage: docker
       sudo: required
       services:
