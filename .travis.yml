@@ -1,7 +1,8 @@
 language: go
-go:
-  - 1.7.x
-  - 1.8.x
+matrix:
+  include:
+    - go: 1.7.x
+    - go: 1.8.x
 
 script:
   - go test -v ./...
@@ -16,3 +17,34 @@ deploy:
   on:
     condition: $TRAVIS_GO_VERSION =~ ^1\.8\.
     tags: true
+
+jobs:
+  include:
+    - stage: docker
+      sudo: required
+      services:
+        - docker
+      language: bash
+      env:
+        - IMAGE_NAME=testblogorganization/hellofaster
+        - REGISTRY_USER=testblogdeploy
+        - secure:
+
+      before_install:
+        - sudo apt-get update
+        - sudo apt-get install -y -o Dpkg::Options::="--force-confold" docker-engine
+
+      before_script:
+        - docker pull "$IMAGE_NAME" || true
+      script:
+        - docker build --pull --cache-from "$IMAGE_NAME" -t "$IMAGE_NAME" .
+
+      before_deploy:
+        - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
+        - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:latest"
+        - docker tag "$IMAGE_NAME" "${IMAGE_NAME}:${TRAVIS_TAG}"
+      deploy:
+        provider: script
+        script: docker push "${IMAGE_NAME}:latest" && docker push "${IMAGE_NAME}:${TRAVIS_TAG}"
+        on:
+          tags: true
