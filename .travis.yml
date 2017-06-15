@@ -19,12 +19,10 @@ deploy:
 
 jobs:
   include:
-    - stage: test
     - stage: docker
       sudo: required
       services:
         - docker
-      language: bash
       env:
         - IMAGE_NAME=testblogorganization/hellofaster
         - REGISTRY_USER=testblogdeploy
