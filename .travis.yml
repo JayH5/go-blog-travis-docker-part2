@@ -34,18 +34,21 @@ jobs:
         - sudo apt-get install -y -o Dpkg::Options::="--force-confold" docker-engine
 
       before_script:
-        - if [ -n "$TRAVIS_TAG" ]; then cache_from="$IMAGE_NAME"; else cache_from="${IMAGE_NAME}:master"; fi
+        - if [ -n "$TRAVIS_TAG" ]; then
+            cache_from="$IMAGE_NAME";
+          else
+            cache_from="${IMAGE_NAME}:master";
+          fi
         - docker pull "$cache_from" || true
       script:
         - docker build --pull --cache-from "$cache_from" -t "$IMAGE_NAME" .
 
       before_deploy:
         - docker login -u "$REGISTRY_USER" -p "$REGISTRY_PASS"
-        - |
-          if [ -n "$TRAVIS_TAG" ]; then
-            tags=("${IMAGE_NAME}:latest" "${IMAGE_NAME}:${TRAVIS_TAG}")
+        - if [ -n "$TRAVIS_TAG" ]; then
+            tags=("${IMAGE_NAME}:latest" "${IMAGE_NAME}:${TRAVIS_TAG}");
           else
-            tags=("${IMAGE_NAME}:master" "${IMAGE_NAME}:$(git rev-parse --short HEAD)-master")
+            tags=("${IMAGE_NAME}:master" "${IMAGE_NAME}:$(git rev-parse --short HEAD)-master");
           fi
         - for tag in "${tags[@]}"; do docker tag "$IMAGE_NAME" "$tag"; done
       deploy:
