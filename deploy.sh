@@ -2,20 +2,17 @@
 set -e
 
 self="$(basename "$0")"
-usage() {
+usage_error() {
 	cat <<-EOU
-		usage: $self TAG_IN TAG_OUT...
+		error: $1
+		usage: $self <tag_in> <tag_out>...
 		   ie: $self myimage myimage:latest myimage:0.3.2
 	EOU
-}
-eusage() {
-	echo >&2 "error: $1"
-	usage >&2
 	exit 1
 }
 
-TAG_IN="$1"; shift || eusage 'missing TAG_IN'
-[ $# -gt 0 ] || eusage 'missing TAG_OUT'
+tag_in="$1"; shift || usage_error 'missing tag_in'
+[ $# -gt 0 ] || usage_error 'missing tag_out'
 
-for tag in "$@"; do docker tag "$TAG_IN" "$tag"; done
-for tag in "$@"; do docker push "$tag"; done
+for tag_out in "$@"; do docker tag "$tag_in" "$tag_out"; done
+for tag_out in "$@"; do docker push "$tag_out"; done
