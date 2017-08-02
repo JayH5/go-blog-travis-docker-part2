@@ -1,7 +1,7 @@
 language: go
 go:
-  - 1.7.x
   - 1.8.x
+  - master
 
 script:
   - go test -v ./...
@@ -14,7 +14,7 @@ deploy:
   file: bin/hello
   skip_cleanup: true
   on:
-    condition: $TRAVIS_GO_VERSION =~ ^1\.8\.
+    go: 1.8.x
     tags: true
 
 jobs:
